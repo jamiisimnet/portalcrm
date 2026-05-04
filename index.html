@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>JamiiSim - Customer Portal</title>
+    <title>JamiiSim - Customer Portal with Telegram</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -32,33 +32,15 @@
             overflow: hidden;
         }
 
-        .login-container::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
-        }
-
         .login-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-radius: 48px;
-            padding: 2.5rem;
+            padding: 2rem;
             width: 100%;
             max-width: 440px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            position: relative;
-            z-index: 1;
             animation: slideUp 0.6s ease;
-            border: 1px solid rgba(255,255,255,0.2);
         }
 
         @keyframes slideUp {
@@ -67,57 +49,57 @@
         }
 
         .login-card h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #1e4a3b, #2c7a5e, #5bc0a3);
+            background: linear-gradient(135deg, #1e4a3b, #2c7a5e);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-group label {
             display: block;
             font-weight: 600;
             color: #1e4a3b;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
         }
 
         .form-group input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border: 2px solid #e2edeb;
             border-radius: 30px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.3s;
         }
 
         .form-group input:focus {
             border-color: #2c7a5e;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(44, 122, 94, 0.1);
         }
 
         .btn {
             background: linear-gradient(135deg, #1e4a3b, #0f3b2f);
             color: white;
             border: none;
-            padding: 14px 24px;
+            padding: 12px 20px;
             border-radius: 30px;
             font-weight: 600;
             width: 100%;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn:hover {
@@ -125,15 +107,14 @@
             box-shadow: 0 8px 20px rgba(30, 74, 59, 0.3);
         }
 
-        /* Customer Portal Dashboard - Sidebar Layout */
+        /* Customer Portal Dashboard */
         .customer-portal {
             min-height: 100vh;
             display: flex;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            position: relative;
         }
 
-        /* Mobile Menu Toggle Button */
+        /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
             position: fixed;
@@ -154,11 +135,6 @@
             justify-content: center;
         }
 
-        .mobile-menu-toggle:hover {
-            transform: scale(1.05);
-        }
-
-        /* Mobile Overlay */
         .mobile-overlay {
             display: none;
             position: fixed;
@@ -177,24 +153,22 @@
             to { opacity: 1; }
         }
 
-        /* Sidebar Navigation */
+        /* Sidebar */
         .portal-sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #0a221d 0%, #0c2b25 50%, #0a1f1a 100%);
+            background: linear-gradient(180deg, #0a221d 0%, #0c2b25 100%);
             color: white;
-            padding: 2rem 1.5rem;
+            padding: 1.5rem;
             position: sticky;
             top: 0;
             height: 100vh;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             border-right: 1px solid rgba(255,255,255,0.1);
             display: flex;
             flex-direction: column;
             z-index: 1000;
         }
 
-        /* Mobile Sidebar (closed) */
         @media (max-width: 768px) {
             .portal-sidebar {
                 position: fixed;
@@ -202,30 +176,20 @@
                 top: 0;
                 height: 100vh;
                 z-index: 1000;
-                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: none;
+                transition: left 0.3s ease;
             }
-            
             .portal-sidebar.open {
                 left: 0;
                 box-shadow: 4px 0 20px rgba(0,0,0,0.3);
             }
-            
             .mobile-menu-toggle {
                 display: flex;
             }
-            
-            .mobile-overlay {
-                display: none;
-            }
-            
             .mobile-overlay.show {
                 display: block;
             }
-            
             .portal-main {
                 width: 100%;
-                margin-left: 0;
             }
         }
 
@@ -234,15 +198,9 @@
             align-items: center;
             gap: 12px;
             padding: 0.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
-            transition: all 0.3s;
-        }
-
-        .sidebar-logo:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateX(5px);
         }
 
         .sidebar-logo-icon {
@@ -256,17 +214,13 @@
         }
 
         .sidebar-logo-icon i {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #5bc0a3;
         }
 
         .sidebar-logo-text h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff, #d4ebd6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
         .sidebar-logo-text p {
@@ -283,7 +237,7 @@
         }
 
         .sidebar-nav ul li {
-            margin: 0.5rem 0;
+            margin: 0.3rem 0;
         }
 
         .sidebar-nav ul li button {
@@ -292,59 +246,30 @@
             color: #b8cdc5;
             width: 100%;
             text-align: left;
-            padding: 12px 16px;
-            border-radius: 16px;
+            padding: 10px 14px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sidebar-nav ul li button::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 0;
-            background: rgba(44, 122, 94, 0.4);
-            transition: width 0.3s;
-            z-index: -1;
-        }
-
-        .sidebar-nav ul li button:hover::before {
-            width: 100%;
         }
 
         .sidebar-nav ul li button i {
-            width: 24px;
-            font-size: 1.1rem;
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        .sidebar-nav ul li button:hover i {
-            transform: scale(1.15);
-            color: #5bc0a3;
+            width: 22px;
+            font-size: 1rem;
         }
 
         .sidebar-nav ul li button:hover {
+            background: rgba(44, 122, 94, 0.3);
             color: white;
-            transform: translateX(5px);
         }
 
         .sidebar-nav ul li .active {
             background: linear-gradient(135deg, #2c7a5e, #1e4a3b);
             color: white;
-            box-shadow: 0 4px 12px rgba(44, 122, 94, 0.4);
-        }
-
-        .sidebar-nav ul li .active i {
-            color: #5bc0a3;
         }
 
         .sidebar-footer {
@@ -359,14 +284,13 @@
             color: #b8cdc5;
             width: 100%;
             text-align: left;
-            padding: 12px 16px;
-            border-radius: 16px;
+            padding: 10px 14px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.85rem;
             transition: all 0.3s;
         }
 
@@ -375,35 +299,16 @@
             color: #f87171;
         }
 
-        .sidebar-footer button i {
-            width: 24px;
-        }
-
-        /* Main Content Area */
+        /* Main Content */
         .portal-main {
             flex: 1;
             overflow-y: auto;
-            transition: all 0.3s;
         }
 
-        /* Enhanced Header */
         .portal-header {
-            background: linear-gradient(135deg, #1e4a3b 0%, #0f3b2f 50%, #1e4a3b 100%);
-            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #1e4a3b, #0f3b2f);
+            padding: 1rem 1.5rem;
             position: relative;
-            overflow: hidden;
-        }
-
-        .portal-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.08)"/><circle cx="50" cy="70" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="80" r="1.5" fill="rgba(255,255,255,0.08)"/></svg>');
-            background-repeat: repeat;
-            opacity: 0.3;
         }
 
         .header-content {
@@ -412,38 +317,32 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            position: relative;
-            z-index: 1;
         }
 
         .welcome-section h1 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 0.25rem;
-            background: linear-gradient(135deg, #ffffff, #d4ebd6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: white;
         }
 
         .welcome-section p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             opacity: 0.8;
+            color: white;
         }
 
         .customer-profile-card {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
             background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1.5rem;
-            border-radius: 60px;
-            backdrop-filter: blur(10px);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
         }
 
         .profile-avatar {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #5bc0a3, #2c7a5e);
             border-radius: 50%;
             display: flex;
@@ -452,30 +351,28 @@
         }
 
         .profile-avatar i {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: white;
         }
 
         .profile-details h3 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #ffffff, #ffd89b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: white;
         }
 
         .profile-details p {
             font-size: 0.7rem;
             opacity: 0.8;
+            color: white;
         }
 
         /* Stats Cards */
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 1rem;
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
         }
 
         .stat-card {
@@ -486,13 +383,11 @@
             transition: all 0.3s;
             border: 1px solid rgba(44, 122, 94, 0.1);
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .stat-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border-color: rgba(44, 122, 94, 0.3);
         }
 
         .stat-icon {
@@ -503,7 +398,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 0.75rem;
+            margin: 0 auto 0.5rem;
         }
 
         .stat-icon i {
@@ -521,13 +416,11 @@
             font-size: 0.7rem;
             color: #5b6e69;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         /* Content Area */
         .content-area {
-            padding: 1rem 2rem 2rem 2rem;
-            min-height: 400px;
+            padding: 1rem 1.5rem 1.5rem;
         }
 
         /* Tables */
@@ -549,20 +442,17 @@
         }
 
         .data-table th {
-            padding: 12px 16px;
+            padding: 10px 14px;
             text-align: left;
             color: white;
             font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 0.7rem;
         }
 
         .data-table td {
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-bottom: 1px solid #eef2f0;
-            color: #1f2e2a;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .data-table tbody tr:hover {
@@ -573,31 +463,16 @@
         .badge-active {
             background: #e8f5e9;
             color: #2b7e5a;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 50px;
             font-size: 0.7rem;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .badge-inactive {
             background: #ffebee;
             color: #c2410c;
-            padding: 4px 10px;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .badge-completed {
-            background: #e8f5e9;
-            color: #2b7e5a;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 50px;
             font-size: 0.7rem;
             font-weight: 600;
@@ -606,18 +481,83 @@
         .badge-incoming {
             background: #e3f2fd;
             color: #1565c0;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 50px;
             font-size: 0.7rem;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
         }
 
-        .units-value {
-            font-weight: 700;
-            color: #1e4a3b;
+        /* Telegram Settings Card */
+        .telegram-card {
+            background: linear-gradient(135deg, #1e4a3b, #0f3b2f);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .telegram-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .telegram-card p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .telegram-input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .telegram-input-group input {
+            flex: 1;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 30px;
+            font-size: 0.85rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-telegram:hover {
+            background: #006699;
+            transform: translateY(-2px);
+        }
+
+        .telegram-status {
+            margin-top: 0.8rem;
+            padding: 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .status-connected {
+            background: rgba(255,255,255,0.2);
+            color: #a8d5c2;
+        }
+
+        .status-disconnected {
+            background: rgba(255,255,255,0.15);
+            color: #ffcccb;
         }
 
         /* Transfer Form */
@@ -644,8 +584,7 @@
             border: 2px solid #e2edeb;
             border-radius: 16px;
             font-size: 0.9rem;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
+            margin-bottom: 1rem;
         }
 
         .feedback-message {
@@ -666,7 +605,6 @@
             color: #c2410c;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -694,95 +632,31 @@
             color: #5b6e69;
         }
 
-        .empty-state i {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            opacity: 0.3;
-        }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 1rem;
+                gap: 0.75rem;
+            }
+            .content-area {
+                padding: 1rem;
+            }
             .portal-header {
                 padding: 1rem;
-                margin-top: 40px;
+                margin-top: 50px;
             }
-            
             .header-content {
                 flex-direction: column;
                 text-align: center;
             }
-            
-            .customer-profile-card {
-                width: 100%;
-                justify-content: center;
+            .welcome-section h1 {
+                font-size: 1.1rem;
             }
-            
-            .stats-container {
-                padding: 1rem;
-                gap: 0.75rem;
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .content-area {
-                padding: 1rem;
-            }
-            
-            .stat-card {
-                padding: 0.75rem;
-            }
-            
             .stat-number {
                 font-size: 1.2rem;
             }
-            
-            .stat-icon {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .stat-icon i {
-                font-size: 1rem;
-            }
-            
-            .welcome-section h1 {
-                font-size: 1.2rem;
-            }
-            
-            .welcome-section p {
-                font-size: 0.7rem;
-            }
-            
-            .transfer-form {
-                padding: 1rem;
-            }
-            
-            .data-table th,
-            .data-table td {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .portal-header {
-                padding: 0.75rem;
-            }
-            
-            .customer-profile-card {
-                padding: 0.3rem 1rem;
-            }
-            
-            .profile-avatar {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .profile-details h3 {
-                font-size: 0.85rem;
+            .telegram-input-group {
+                flex-direction: column;
             }
         }
     </style>
@@ -791,6 +665,11 @@
 <div id="app"></div>
 
 <script>
+    // ==================== TELEGRAM CONFIGURATION ====================
+    const TELEGRAM_BOT_TOKEN = "8786753893:AAEnCBeMrSPqAyrX-7PXXPuVHz79YrEwvZQ";
+    const TELEGRAM_BOT_USERNAME = "jamiisim2bot";
+    const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
+    
     // Google Sheets API Configuration
     const API_BASE_URL = "https://script.google.com/macros/s/AKfycbx-ggpKM1cMYW48ojsD3wuy8vkyJP4sLe31KDi4w8sF559e22i8ZvVFydnooGu4lnpQ/exec";
     
@@ -801,6 +680,8 @@
     let transactionCount = 0;
     let currentTab = "tills";
     let mobileMenuOpen = false;
+    let customerTelegramId = null;
+    let customerTelegramUsername = null;
     
     function showToast(message, isError = false) {
         const toast = document.createElement('div');
@@ -850,30 +731,721 @@
         }
     }
     
-    function updateUnitConversions() {
+    // ==================== TELEGRAM FUNCTIONS ====================
+    
+    // Send message to Telegram user
+    async function sendTelegramMessage(chatId, message) {
+        if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === "8786753893:AAEnCBeMrSPqAyrX-7PXXPuVHz79YrEwvZQ") {
+            console.log("Telegram bot configured:", TELEGRAM_BOT_USERNAME);
+        }
+        
+        try {
+            const response = await fetch(`${TELEGRAM_API_URL}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+            const data = await response.json();
+            if (!data.ok) {
+                console.error("Telegram API Error:", data.description);
+            }
+            return { success: data.ok, error: data.description };
+        } catch (err) {
+            console.error("Telegram API Error:", err);
+            return { success: false, error: err.message };
+        }
+    }
+    
+    // Get chat ID from Telegram username
+    async function getChatIdFromUsername(username) {
+        // Remove @ if present
+        const cleanUsername = username.replace('@', '');
+        
+        try {
+            // Try to get updates to find the user's chat_id
+            const response = await fetch(`${TELEGRAM_API_URL}/getUpdates`);
+            const data = await response.json();
+            
+            if (data.ok && data.result) {
+                // Find the user in recent messages
+                for (const update of data.result) {
+                    const message = update.message || update.channel_post;
+                    if (message && message.chat) {
+                        const msgUsername = message.from?.username;
+                        const chatId = message.chat.id;
+                        
+                        if (msgUsername && msgUsername.toLowerCase() === cleanUsername.toLowerCase()) {
+                            return { success: true, chatId: chatId };
+                        }
+                    }
+                }
+            }
+            return { success: false, error: "User not found. Please send a message to @jamiisim2bot first." };
+        } catch (err) {
+            return { success: false, error: err.message };
+        }
+    }
+    
+    // Save Telegram username to localStorage
+    function saveTelegramUsername(username, chatId) {
+        if (!currentCustomer) return false;
+        
+        const telegramData = {
+            username: username,
+            chatId: chatId,
+            updatedAt: new Date().toISOString()
+        };
+        
+        localStorage.setItem(`telegram_${currentCustomer.phone}`, JSON.stringify(telegramData));
+        customerTelegramUsername = username;
+        customerTelegramId = chatId;
+        
+        return true;
+    }
+    
+    // Get Telegram username for customer
+    function getTelegramUsername() {
+        if (!currentCustomer) return null;
+        
+        const stored = localStorage.getItem(`telegram_${currentCustomer.phone}`);
+        if (stored) {
+            const data = JSON.parse(stored);
+            customerTelegramUsername = data.username;
+            customerTelegramId = data.chatId;
+            return data;
+        }
+        return null;
+    }
+    
+    // Send notification about transfer
+    async function notifyTransfer(tillNumber, units, newBalance, senderPhone) {
+        if (!customerTelegramId) return;
+        
+        const message = `
+🔔 <b>JamiiSim Network - Transfer Notification</b>
+        
+✅ <b>Transfer Received!</b>
+        
+📱 <b>Till Number:</b> ${tillNumber}
+📦 <b>Units Added:</b> +${units}
+💰 <b>New Balance:</b> ${newBalance} units
+👤 <b>From:</b> ${senderPhone || 'Administrator'}
+📅 <b>Date:</b> ${new Date().toLocaleString()}
+        
+Thank you for using JamiiSim Network!
+        `;
+        
+        await sendTelegramMessage(customerTelegramId, message);
+    }
+    
+    // Send login notification
+    async function notifyLogin() {
+        if (!customerTelegramId) return;
+        
+        const message = `
+🔐 <b>JamiiSim Network - Login Alert</b>
+        
+👋 <b>Welcome back, ${currentCustomer.name}!</b>
+        
+📱 <b>Phone:</b> ${currentCustomer.phone}
+📅 <b>Login Time:</b> ${new Date().toLocaleString()}
+        
+If this wasn't you, please contact support immediately.
+        `;
+        
+        await sendTelegramMessage(customerTelegramId, message);
+    }
+    
+    // Send test message
+    async function sendTestMessage() {
+        if (!customerTelegramId) {
+            showToast("Please connect your Telegram account first", true);
+            return false;
+        }
+        
+        const testMsg = `
+🔔 <b>JamiiSim Test Notification</b>
+        
+This is a test message to confirm your Telegram connection is working properly.
+        
+✅ <b>Status:</b> Connected
+👤 <b>Account:</b> ${currentCustomer.name}
+📅 <b>Time:</b> ${new Date().toLocaleString()}
+        
+If you received this, your notifications are working!
+        `;
+        
+        const result = await sendTelegramMessage(customerTelegramId, testMsg);
+        
+        if (result.success) {
+            showToast("Test message sent to your Telegram!");
+        } else {
+            showToast("Failed to send: " + result.error, true);
+        }
+        
+        return result.success;
+    }
+    
+    // ==================== LOGIN SCREEN ====================
+    function renderLogin() {
+        return `
+            <div class="login-container">
+                <div class="login-card">
+                    <h2><i class="fab fa-telegram"></i> JamiiSim Portal</h2>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="customerPhone" placeholder="0712345678">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-key"></i> PIN (Last 4 digits of ID)</label>
+                        <input type="password" id="customerPin" placeholder="Enter PIN" maxlength="4">
+                    </div>
+                    <button class="btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Access Portal</button>
+                    <div id="loginError" style="color:#c2410c; text-align:center; margin-top:1rem;"></div>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #f0f4f2; border-radius: 16px;">
+                        <p style="font-size: 0.7rem; text-align: center; margin-bottom: 0.5rem;">
+                            <i class="fab fa-telegram"></i> <strong>Get Telegram Notifications!</strong>
+                        </p>
+                        <p style="font-size: 0.65rem; text-align: center;">
+                            1. Message <strong>@${TELEGRAM_BOT_USERNAME}</strong> on Telegram<br>
+                            2. Login here and go to Settings<br>
+                            3. Add your Telegram username
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    async function handleLogin() {
+        const phone = document.getElementById("customerPhone").value.trim();
+        const pin = document.getElementById("customerPin").value;
+        const errorDiv = document.getElementById("loginError");
+        
+        if (!phone || !pin) {
+            errorDiv.innerHTML = "Please enter phone number and PIN";
+            return;
+        }
+        
+        errorDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Verifying...';
+        
+        const linesResult = await apiCall("getLines");
+        const customers = linesResult.lines || [];
+        
+        const customer = customers.find(c => normalizePhone(c.phone) === normalizePhone(phone));
+        
+        if (customer) {
+            const idString = String(customer.idNumber);
+            const idLast4 = idString.slice(-4);
+            
+            if (pin === idLast4) {
+                currentCustomer = customer;
+                await loadCustomerData();
+                
+                // Load Telegram settings
+                const telegramData = getTelegramUsername();
+                if (telegramData && telegramData.chatId) {
+                    await notifyLogin();
+                }
+                
+                renderDashboard();
+                showToast(`Welcome ${customer.name}!`);
+                return;
+            }
+        }
+        
+        errorDiv.innerHTML = "Invalid phone number or PIN";
+    }
+    
+    // ==================== LOAD CUSTOMER DATA ====================
+    async function loadCustomerData() {
+        const tillsResult = await apiCall("getTills");
+        const allTills = tillsResult.tills || [];
+        customerTills = allTills.filter(t => normalizePhone(t.phone) === normalizePhone(currentCustomer.phone));
+        
+        const storedHistory = localStorage.getItem(`transfers_in_${currentCustomer.phone}`);
+        transferHistory = storedHistory ? JSON.parse(storedHistory) : [];
+        
         totalUnitsReceived = transferHistory.reduce((sum, t) => sum + (t.units || 0), 0);
         transactionCount = transferHistory.length;
         
-        localStorage.setItem(`units_received_${currentCustomer?.phone}`, totalUnitsReceived);
-        localStorage.setItem(`transaction_count_${currentCustomer?.phone}`, transactionCount);
-        
-        return { totalUnitsReceived, transactionCount };
+        // Load Telegram settings
+        getTelegramUsername();
     }
     
-    function getStoredUnitConversions() {
-        if (!currentCustomer) return { totalUnitsReceived: 0, transactionCount: 0 };
+    // ==================== DASHBOARD RENDER ====================
+    function renderDashboard() {
+        const totalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
+        const activeTills = customerTills.filter(t => t.status === "active").length;
         
-        const storedUnits = localStorage.getItem(`units_received_${currentCustomer.phone}`);
-        const storedCount = localStorage.getItem(`transaction_count_${currentCustomer.phone}`);
+        const app = document.getElementById("app");
+        app.innerHTML = `
+            <div class="customer-portal">
+                <!-- Sidebar -->
+                <div class="portal-sidebar">
+                    <div class="sidebar-logo">
+                        <div class="sidebar-logo-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="sidebar-logo-text">
+                            <h2>JamiiSim</h2>
+                            <p>Customer Portal</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-nav">
+                        <ul>
+                            <li><button class="nav-btn ${currentTab === 'tills' ? 'active' : ''}" data-tab="tills"><i class="fas fa-cash-register"></i> <span>My Tills</span></button></li>
+                            <li><button class="nav-btn ${currentTab === 'transactions' ? 'active' : ''}" data-tab="transactions"><i class="fas fa-history"></i> <span>Transactions</span></button></li>
+                            <li><button class="nav-btn ${currentTab === 'transfer' ? 'active' : ''}" data-tab="transfer"><i class="fas fa-arrow-down"></i> <span>Transfer In</span></button></li>
+                            <li><button class="nav-btn ${currentTab === 'settings' ? 'active' : ''}" data-tab="settings"><i class="fab fa-telegram"></i> <span>Telegram Settings</span></button></li>
+                            <li><button class="nav-btn ${currentTab === 'statement' ? 'active' : ''}" data-tab="statement"><i class="fas fa-download"></i> <span>Statement</span></button></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-footer">
+                        <button id="logoutBtnPortal"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="portal-main">
+                    <div class="portal-header">
+                        <div class="header-content">
+                            <div class="welcome-section">
+                                <h1>Welcome, ${escapeHtml(currentCustomer.name)}</h1>
+                                <p>Manage your tills and get Telegram notifications</p>
+                            </div>
+                            <div class="customer-profile-card">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="profile-details">
+                                    <h3>${escapeHtml(currentCustomer.name)}</h3>
+                                    <p><i class="fas fa-phone"></i> ${escapeHtml(currentCustomer.phone)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-card" data-tab="tills">
+                            <div class="stat-icon"><i class="fas fa-cash-register"></i></div>
+                            <div class="stat-number">${customerTills.length}</div>
+                            <div class="stat-label">Total Tills</div>
+                        </div>
+                        <div class="stat-card" data-tab="tills">
+                            <div class="stat-icon"><i class="fas fa-cubes"></i></div>
+                            <div class="stat-number">${totalUnits}</div>
+                            <div class="stat-label">Current Units</div>
+                        </div>
+                        <div class="stat-card" data-tab="transactions">
+                            <div class="stat-icon"><i class="fas fa-exchange-alt"></i></div>
+                            <div class="stat-number">${transactionCount}</div>
+                            <div class="stat-label">Transactions</div>
+                        </div>
+                        <div class="stat-card" data-tab="transactions">
+                            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="stat-number">${totalUnitsReceived}</div>
+                            <div class="stat-label">Units Received</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-area">
+                        <div id="tillsContent">
+                            ${renderTillsContent()}
+                        </div>
+                        <div id="transactionsContent" style="display:none;">
+                            ${renderTransactionsContent()}
+                        </div>
+                        <div id="transferContent" style="display:none;">
+                            ${renderTransferForm()}
+                        </div>
+                        <div id="settingsContent" style="display:none;">
+                            ${renderTelegramSettings()}
+                        </div>
+                        <div id="statementContent" style="display:none;">
+                            ${renderStatementContent()}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
         
-        return {
-            totalUnitsReceived: storedUnits ? parseInt(storedUnits) : 0,
-            transactionCount: storedCount ? parseInt(storedCount) : 0
-        };
+        // Mobile menu initialization
+        initMobileMenu();
+        
+        // Navigation event listeners
+        document.querySelectorAll('.nav-btn, .stat-card').forEach(el => {
+            el.addEventListener('click', () => {
+                const tab = el.dataset.tab;
+                if (tab) switchTab(tab);
+            });
+        });
+        
+        document.getElementById("logoutBtnPortal")?.addEventListener("click", handleLogout);
+        document.getElementById("submitTransferBtn")?.addEventListener("click", handleTransferIn);
+        document.getElementById("saveTelegramBtn")?.addEventListener("click", handleSaveTelegram);
+        document.getElementById("testTelegramBtn")?.addEventListener("click", sendTestMessage);
+        document.getElementById("downloadStatementBtn")?.addEventListener("click", downloadStatement);
+        
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && mobileMenuOpen) {
+                closeMobileMenu();
+            }
+        });
     }
     
-    async function saveTransferRequestToSheet(transferData) {
-        return await apiCall("saveTransferRequest", transferData);
+    function renderTillsContent() {
+        if (customerTills.length === 0) {
+            return '<div class="empty-state"><i class="fas fa-inbox"></i><br>No tills registered yet</div>';
+        }
+        
+        return `
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Till Number</th>
+                            <th>Store</th>
+                            <th>Units</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${customerTills.map(till => `
+                            <tr>
+                                <td><strong>${escapeHtml(till.tillNumber)}</strong></td>
+                                <td>${escapeHtml(till.storeNumber)}</div>
+                                <td><span style="font-weight:700;">${till.units || 0}</span></div>
+                                <td>${till.status === "active" ? '<span class="badge-active">Active</span>' : '<span class="badge-inactive">Inactive</span>'}</div>
+                                <td>${till.dateCreated ? new Date(till.dateCreated).toLocaleDateString() : '-'}</div>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+    
+    function renderTransactionsContent() {
+        if (transferHistory.length === 0) {
+            return '<div class="empty-state"><i class="fas fa-inbox"></i><br>No transactions yet</div>';
+        }
+        
+        return `
+            <div style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="background: linear-gradient(135deg, #1e4a3b, #0f3b2f); padding: 0.75rem 1rem; border-radius: 16px; color: white;">
+                    <div style="font-size: 1.3rem; font-weight: 700;">${totalUnitsReceived}</div>
+                    <div style="font-size: 0.7rem;">Total Units Received</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #2c7a5e, #1e4a3b); padding: 0.75rem 1rem; border-radius: 16px; color: white;">
+                    <div style="font-size: 1.3rem; font-weight: 700;">${transactionCount}</div>
+                    <div style="font-size: 0.7rem;">Total Transactions</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>From</th>
+                            <th>Units</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${transferHistory.map(t => `
+                            <tr>
+                                <td>${new Date(t.date).toLocaleDateString()}</div>
+                                <td>${escapeHtml(t.fromPhone || 'Admin')}</div>
+                                <td><span class="badge-incoming">+${t.units}</span></div>
+                                <td>${escapeHtml(t.reason || '-')}</div>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+    
+    function renderTransferForm() {
+        if (customerTills.length === 0) {
+            return '<div class="empty-state"><i class="fas fa-inbox"></i><br>No tills available</div>';
+        }
+        
+        return `
+            <div class="transfer-form">
+                <h3><i class="fas fa-arrow-down"></i> Transfer Units IN</h3>
+                <p style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: #5b6e69;">Add units to your till (Increases your balance)</p>
+                <select id="transferTill">
+                    <option value="">Select till...</option>
+                    ${customerTills.map(till => `
+                        <option value="${escapeHtml(till.tillNumber)}" data-current-units="${till.units || 0}" data-row="${till.rowIndex}">
+                            ${escapeHtml(till.tillNumber)} - Current: ${till.units || 0} units
+                        </option>
+                    `).join('')}
+                </select>
+                <input type="tel" id="senderPhone" placeholder="Sender Phone Number" value="ADMIN">
+                <input type="number" id="transferUnits" placeholder="Units to Add" min="1">
+                <input type="text" id="transferReason" placeholder="Reason (e.g., Top-up, Bonus)">
+                <button class="btn" id="submitTransferBtn"><i class="fas fa-plus-circle"></i> Add Units</button>
+                <div id="transferFeedback" class="feedback-message" style="display:none;"></div>
+            </div>
+        `;
+    }
+    
+    function renderTelegramSettings() {
+        const telegramData = getTelegramUsername();
+        const isConnected = telegramData && telegramData.chatId;
+        
+        return `
+            <div class="telegram-card">
+                <h3><i class="fab fa-telegram"></i> Telegram Notifications</h3>
+                <p>Connect your Telegram account to receive real-time notifications about:</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem; font-size: 0.8rem;">
+                    <li>✓ Unit transfers to your account</li>
+                    <li>✓ Login alerts</li>
+                    <li>✓ Account statements</li>
+                </ul>
+                
+                <div class="telegram-input-group">
+                    <input type="text" id="telegramUsername" placeholder="Your Telegram Username (e.g., @username)" value="${customerTelegramUsername || ''}">
+                    <button class="btn-telegram" id="saveTelegramBtn"><i class="fab fa-telegram"></i> Connect</button>
+                </div>
+                
+                <div class="telegram-status ${isConnected ? 'status-connected' : 'status-disconnected'}">
+                    <i class="fas ${isConnected ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    ${isConnected ? `Connected to @${customerTelegramUsername}` : 'Not connected. Add your Telegram username to receive notifications.'}
+                </div>
+                
+                ${isConnected ? `
+                <div style="margin-top: 1rem;">
+                    <button class="btn-telegram" id="testTelegramBtn" style="background: #4a6741;"><i class="fas fa-paper-plane"></i> Send Test Message</button>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 1rem; margin-top: 1rem;">
+                <h4 style="color: #1e4a3b; margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i> How to connect:</h4>
+                <ol style="margin-left: 1.5rem; font-size: 0.8rem; color: #5b6e69; line-height: 1.6;">
+                    <li>Open Telegram and search for <strong>@${TELEGRAM_BOT_USERNAME}</strong></li>
+                    <li>Start a chat and send <strong>/start</strong></li>
+                    <li>Copy your Telegram username (starts with @)</li>
+                    <li>Paste it above and click Connect</li>
+                </ol>
+            </div>
+        `;
+    }
+    
+    function renderStatementContent() {
+        const totalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
+        
+        return `
+            <div class="transfer-form">
+                <h3><i class="fas fa-file-alt"></i> Account Statement</h3>
+                <div style="margin-bottom: 1rem; padding: 0.75rem; background: #f8fbf9; border-radius: 16px;">
+                    <p><strong>Name:</strong> ${escapeHtml(currentCustomer.name)}</p>
+                    <p><strong>Phone:</strong> ${escapeHtml(currentCustomer.phone)}</p>
+                    <p><strong>Tills:</strong> ${customerTills.length}</p>
+                    <p><strong>Current Units:</strong> ${totalUnits}</p>
+                    <p><strong>Units Received:</strong> ${totalUnitsReceived}</p>
+                    <p><strong>Transactions:</strong> ${transactionCount}</p>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead><tr><th>Till</th><th>Store</th><th>Units</th><th>Status</th></tr></thead>
+                        <tbody>
+                            ${customerTills.map(t => `<tr><td>${escapeHtml(t.tillNumber)}</td><td>${escapeHtml(t.storeNumber)}</td><td>${t.units || 0}</td><td>${t.status}</td></tr>`).join('')}
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn" id="downloadStatementBtn" style="margin-top: 1rem;"><i class="fas fa-download"></i> Download Statement</button>
+            </div>
+        `;
+    }
+    
+    async function handleTransferIn() {
+        const tillSelect = document.getElementById("transferTill");
+        const selectedOption = tillSelect.options[tillSelect.selectedIndex];
+        const tillNumber = tillSelect.value;
+        const rowIndex = selectedOption?.dataset.row;
+        const currentUnits = parseInt(selectedOption?.dataset.currentUnits || 0);
+        const senderPhone = document.getElementById("senderPhone").value.trim();
+        const units = parseInt(document.getElementById("transferUnits").value);
+        const reason = document.getElementById("transferReason")?.value.trim() || "Unit top-up";
+        const feedback = document.getElementById("transferFeedback");
+        
+        if (!tillNumber) {
+            feedback.style.display = "block";
+            feedback.innerHTML = 'Please select a till';
+            feedback.className = "feedback-message feedback-error";
+            return;
+        }
+        if (!units || units <= 0) {
+            feedback.style.display = "block";
+            feedback.innerHTML = 'Please enter valid units to add';
+            feedback.className = "feedback-message feedback-error";
+            return;
+        }
+        
+        feedback.style.display = "block";
+        feedback.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+        feedback.className = "feedback-message";
+        
+        const updateRes = await apiCall("updateUnits", { rowIndex: parseInt(rowIndex), addUnits: units });
+        
+        if (updateRes.success) {
+            const tillIndex = customerTills.findIndex(t => t.tillNumber === tillNumber);
+            if (tillIndex !== -1) {
+                customerTills[tillIndex].units = (customerTills[tillIndex].units || 0) + units;
+            }
+            
+            const newBalance = currentUnits + units;
+            
+            const transferRecord = {
+                id: Date.now(),
+                tillNumber: tillNumber,
+                fromPhone: senderPhone || "SYSTEM",
+                toPhone: currentCustomer.phone,
+                units: units,
+                reason: reason,
+                date: new Date().toISOString()
+            };
+            
+            transferHistory.unshift(transferRecord);
+            localStorage.setItem(`transfers_in_${currentCustomer.phone}`, JSON.stringify(transferHistory));
+            
+            // Send Telegram notification
+            if (customerTelegramId) {
+                await notifyTransfer(tillNumber, units, newBalance, senderPhone);
+            }
+            
+            totalUnitsReceived = transferHistory.reduce((sum, t) => sum + (t.units || 0), 0);
+            transactionCount = transferHistory.length;
+            
+            feedback.innerHTML = `✓ Success! Added ${units} units. New balance: ${newBalance} units`;
+            feedback.className = "feedback-message feedback-success";
+            
+            document.getElementById("transferUnits").value = "";
+            document.getElementById("transferReason").value = "";
+            document.getElementById("transferTill").value = "";
+            
+            // Update stats
+            setTimeout(() => {
+                if (currentTab === "transactions") {
+                    document.getElementById("transactionsContent").innerHTML = renderTransactionsContent();
+                }
+                if (currentTab === "tills") {
+                    document.getElementById("tillsContent").innerHTML = renderTillsContent();
+                }
+                // Update stat numbers
+                const stats = document.querySelectorAll('.stat-number');
+                if (stats[1]) stats[1].textContent = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
+                if (stats[2]) stats[2].textContent = transactionCount;
+                if (stats[3]) stats[3].textContent = totalUnitsReceived;
+                
+                showToast(`Added ${units} units successfully!`);
+            }, 500);
+        } else {
+            feedback.innerHTML = `Failed: ${updateRes.error}`;
+            feedback.className = "feedback-message feedback-error";
+        }
+    }
+    
+    async function handleSaveTelegram() {
+        const username = document.getElementById("telegramUsername").value.trim();
+        
+        if (!username) {
+            showToast("Please enter your Telegram username", true);
+            return;
+        }
+        
+        // Remove @ if present
+        const cleanUsername = username.replace('@', '');
+        
+        showToast("Verifying Telegram username...");
+        
+        // Try to get chat ID from Telegram
+        const result = await getChatIdFromUsername(cleanUsername);
+        
+        if (result.success && result.chatId) {
+            saveTelegramUsername(cleanUsername, result.chatId);
+            
+            // Send welcome message
+            const welcomeMsg = `
+🎉 <b>Welcome to JamiiSim Telegram Notifications!</b>
+        
+Hello ${currentCustomer.name},
+        
+You will now receive real-time updates about:
+• Unit transfers to your account
+• Login alerts
+• Account statements
+        
+Thank you for using JamiiSim Network!
+        `;
+            
+            await sendTelegramMessage(result.chatId, welcomeMsg);
+            
+            showToast(`✅ Connected! Welcome message sent to @${cleanUsername}`);
+            renderDashboard();
+        } else {
+            showToast(`❌ Could not verify. Please send a message to @${TELEGRAM_BOT_USERNAME} first`, true);
+        }
+    }
+    
+    function downloadStatement() {
+        const totalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
+        
+        let html = `
+            <!DOCTYPE html>
+            <html>
+            <head><title>Statement - ${currentCustomer.name}</title>
+            <style>
+                body { font-family: Arial; padding: 2rem; }
+                h1 { color: #1e4a3b; }
+                table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background: #1e4a3b; color: white; }
+            </style>
+            </head>
+            <body>
+                <h1>JamiiSim Network - Account Statement</h1>
+                <p><strong>Name:</strong> ${currentCustomer.name}</p>
+                <p><strong>Phone:</strong> ${currentCustomer.phone}</p>
+                <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+                <h3>Summary</h3>
+                <p>Tills: ${customerTills.length} | Units: ${totalUnits} | Received: ${totalUnitsReceived}</p>
+                <h3>Till Details</h3>
+                <table>
+                    <tr><th>Till</th><th>Store</th><th>Units</th><th>Status</th></tr>
+                    ${customerTills.map(t => `</tr><td>${t.tillNumber}</td><td>${t.storeNumber}</td><td>${t.units || 0}</td><td>${t.status}</td></tr>`).join('')}
+                </table>
+                <h3>Transaction History</h3>
+                <table>
+                    <tr><th>Date</th><th>From</th><th>Units</th><th>Reason</th></tr>
+                    ${transferHistory.map(t => `<tr><td>${new Date(t.date).toLocaleString()}</td><td>${t.fromPhone}</td><td>+${t.units}</td><td>${t.reason}</td></tr>`).join('')}
+                </table>
+            </body>
+            </html>
+        `;
+        
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `JamiiSim_Statement_${currentCustomer.phone}.html`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast("Statement downloaded!");
     }
     
     // Mobile Menu Functions
@@ -895,9 +1467,7 @@
         document.body.appendChild(overlay);
         
         const sidebar = document.querySelector('.portal-sidebar');
-        if (sidebar) {
-            sidebar.classList.remove('open');
-        }
+        if (sidebar) sidebar.classList.remove('open');
     }
     
     function toggleMobileMenu() {
@@ -933,476 +1503,11 @@
         }
     }
     
-    // ==================== LOGIN SCREEN ====================
-    function renderLogin() {
-        return `
-            <div class="login-container">
-                <div class="login-card">
-                    <h2><i class="fas fa-users"></i> Customer Portal</h2>
-                    <div class="form-group">
-                        <label><i class="fas fa-phone"></i> Phone Number</label>
-                        <input type="tel" id="customerPhone" placeholder="0712345678">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-key"></i> PIN (Last 4 digits of ID)</label>
-                        <input type="password" id="customerPin" placeholder="Enter PIN" maxlength="4">
-                    </div>
-                    <button class="btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Access Portal</button>
-                    <div id="loginError" style="color:#c2410c; text-align:center; margin-top:1rem;"></div>
-                </div>
-            </div>
-        `;
-    }
-    
-    async function handleLogin() {
-        const phone = document.getElementById("customerPhone").value.trim();
-        const pin = document.getElementById("customerPin").value;
-        const errorDiv = document.getElementById("loginError");
-        
-        if (!phone || !pin) {
-            errorDiv.innerHTML = "Please enter phone number and PIN";
-            return;
-        }
-        
-        errorDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Verifying...';
-        
-        const linesResult = await apiCall("getLines");
-        const customers = linesResult.lines || [];
-        
-        const customer = customers.find(c => normalizePhone(c.phone) === normalizePhone(phone));
-        
-        if (customer) {
-            const idString = String(customer.idNumber);
-            const idLast4 = idString.slice(-4);
-            
-            if (pin === idLast4) {
-                currentCustomer = customer;
-                await loadCustomerData();
-                renderDashboard();
-                showToast(`Welcome ${customer.name}!`);
-                return;
-            }
-        }
-        
-        errorDiv.innerHTML = "Invalid phone number or PIN";
-    }
-    
-    // ==================== LOAD CUSTOMER DATA ====================
-    async function loadCustomerData() {
-        const tillsResult = await apiCall("getTills");
-        const allTills = tillsResult.tills || [];
-        customerTills = allTills.filter(t => normalizePhone(t.phone) === normalizePhone(currentCustomer.phone));
-        
-        const storedHistory = localStorage.getItem(`transfers_in_${currentCustomer.phone}`);
-        transferHistory = storedHistory ? JSON.parse(storedHistory) : [];
-        
-        const conversions = updateUnitConversions();
-        totalUnitsReceived = conversions.totalUnitsReceived;
-        transactionCount = conversions.transactionCount;
-    }
-    
-    // ==================== DASHBOARD RENDER ====================
-    function renderDashboard() {
-        const totalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
-        const activeTills = customerTills.filter(t => t.status === "active").length;
-        const conversions = getStoredUnitConversions();
-        
-        const app = document.getElementById("app");
-        app.innerHTML = `
-            <div class="customer-portal">
-                <!-- Sidebar Navigation -->
-                <div class="portal-sidebar">
-                    <div class="sidebar-logo">
-                        <div class="sidebar-logo-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div class="sidebar-logo-text">
-                            <h2>JamiiSim</h2>
-                            <p>Customer Portal</p>
-                        </div>
-                    </div>
-                    
-                    <div class="sidebar-nav">
-                        <ul>
-                            <li><button class="nav-btn ${currentTab === 'tills' ? 'active' : ''}" data-tab="tills"><i class="fas fa-cash-register"></i> <span>My Tills</span></button></li>
-                            <li><button class="nav-btn ${currentTab === 'transactions' ? 'active' : ''}" data-tab="transactions"><i class="fas fa-history"></i> <span>Transaction History</span></button></li>
-                            <li><button class="nav-btn ${currentTab === 'transfer' ? 'active' : ''}" data-tab="transfer"><i class="fas fa-arrow-down"></i> <span>Transfer In</span></button></li>
-                            <li><button class="nav-btn ${currentTab === 'statement' ? 'active' : ''}" data-tab="statement"><i class="fas fa-download"></i> <span>Download Statement</span></button></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sidebar-footer">
-                        <button id="logoutBtnPortal"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
-                    </div>
-                </div>
-                
-                <!-- Main Content -->
-                <div class="portal-main">
-                    <!-- Header -->
-                    <div class="portal-header">
-                        <div class="header-content">
-                            <div class="welcome-section">
-                                <h1>Welcome back, ${escapeHtml(currentCustomer.name)}</h1>
-                                <p>Manage your tills and track your units</p>
-                            </div>
-                            <div class="customer-profile-card">
-                                <div class="profile-avatar">
-                                    <i class="fas fa-user-circle"></i>
-                                </div>
-                                <div class="profile-details">
-                                    <h3>${escapeHtml(currentCustomer.name)}</h3>
-                                    <p><i class="fas fa-phone"></i> ${escapeHtml(currentCustomer.phone)}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Stats Cards -->
-                    <div class="stats-container">
-                        <div class="stat-card" id="tillsStatCard">
-                            <div class="stat-icon"><i class="fas fa-cash-register"></i></div>
-                            <div class="stat-number">${customerTills.length}</div>
-                            <div class="stat-label">Total Tills</div>
-                        </div>
-                        <div class="stat-card" id="unitsStatCard">
-                            <div class="stat-icon"><i class="fas fa-cubes"></i></div>
-                            <div class="stat-number">${totalUnits}</div>
-                            <div class="stat-label">Current Units</div>
-                        </div>
-                        <div class="stat-card" id="activeStatCard">
-                            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="stat-number">${activeTills}</div>
-                            <div class="stat-label">Active Tills</div>
-                        </div>
-                        <div class="stat-card" id="transactionsStatCard">
-                            <div class="stat-icon"><i class="fas fa-exchange-alt"></i></div>
-                            <div class="stat-number">${conversions.transactionCount}</div>
-                            <div class="stat-label">Transactions</div>
-                        </div>
-                        <div class="stat-card" id="unitsReceivedStatCard">
-                            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                            <div class="stat-number">${conversions.totalUnitsReceived}</div>
-                            <div class="stat-label">Units Received</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Content Area -->
-                    <div class="content-area">
-                        <div id="tillsContent">
-                            ${renderTillsContent()}
-                        </div>
-                        <div id="transactionsContent" style="display:none;">
-                            ${renderTransactionsContent()}
-                        </div>
-                        <div id="transferContent" style="display:none;">
-                            ${renderTransferForm()}
-                        </div>
-                        <div id="statementContent" style="display:none;">
-                            ${renderStatementContent()}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        // Initialize mobile menu
-        initMobileMenu();
-        
-        // Sidebar navigation event listeners
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tab = btn.dataset.tab;
-                switchTab(tab);
-                if (window.innerWidth <= 768) {
-                    closeMobileMenu();
-                }
-            });
-        });
-        
-        // Stat card click handlers
-        document.getElementById("transactionsStatCard")?.addEventListener("click", () => switchTab("transactions"));
-        document.getElementById("unitsReceivedStatCard")?.addEventListener("click", () => switchTab("transactions"));
-        document.getElementById("tillsStatCard")?.addEventListener("click", () => switchTab("tills"));
-        document.getElementById("unitsStatCard")?.addEventListener("click", () => switchTab("tills"));
-        document.getElementById("activeStatCard")?.addEventListener("click", () => switchTab("tills"));
-        
-        document.getElementById("logoutBtnPortal")?.addEventListener("click", handleLogout);
-        document.getElementById("submitTransferBtn")?.addEventListener("click", handleTransferIn);
-        document.getElementById("downloadStatementBtn")?.addEventListener("click", downloadStatement);
-    }
-    
-    function renderTillsContent() {
-        if (customerTills.length === 0) {
-            return '<div class="empty-state"><i class="fas fa-inbox"></i><br>No tills registered yet</div>';
-        }
-        
-        return `
-            <div class="table-wrapper">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Till Number</th>
-                            <th>Store Number</th>
-                            <th>Current Units</th>
-                            <th>Status</th>
-                            <th>Date Created</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${customerTills.map(till => `
-                            <tr>
-                                <td><strong>${escapeHtml(till.tillNumber)}</strong></td>
-                                <td>${escapeHtml(till.storeNumber)}</div>
-                                <td><span class="units-value">${till.units || 0} units</span></div>
-                                <td>${till.status === "active" ? '<span class="badge-active"><i class="fas fa-check-circle"></i> Active</span>' : '<span class="badge-inactive"><i class="fas fa-clock"></i> Inactive</span>'}</div>
-                                <td>${till.dateCreated ? new Date(till.dateCreated).toLocaleDateString() : '-'}</div>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    }
-    
-    function renderTransactionsContent() {
-        if (transferHistory.length === 0) {
-            return '<div class="empty-state"><i class="fas fa-inbox"></i><br>No transaction history</div>';
-        }
-        
-        const conversions = updateUnitConversions();
-        
-        return `
-            <div style="margin-bottom: 1rem;">
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <div style="background: linear-gradient(135deg, #1e4a3b, #0f3b2f); padding: 0.75rem 1.25rem; border-radius: 16px; color: white;">
-                        <span style="font-size: 0.7rem; opacity: 0.8;">Total Units Received</span>
-                        <div style="font-size: 1.5rem; font-weight: 700;">${conversions.totalUnitsReceived}</div>
-                    </div>
-                    <div style="background: linear-gradient(135deg, #2c7a5e, #1e4a3b); padding: 0.75rem 1.25rem; border-radius: 16px; color: white;">
-                        <span style="font-size: 0.7rem; opacity: 0.8;">Total Transactions</span>
-                        <div style="font-size: 1.5rem; font-weight: 700;">${conversions.transactionCount}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-wrapper">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>From</th>
-                            <th>Units</th>
-                            <th>Running Total</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${transferHistory.map((t, index) => {
-                            let runningTotal = 0;
-                            for (let i = 0; i <= index; i++) {
-                                runningTotal += transferHistory[i].units;
-                            }
-                            return `
-                                <tr>
-                                    <td>${new Date(t.date).toLocaleDateString()} <small>${new Date(t.date).toLocaleTimeString()}</small></div>
-                                    <td><span class="badge-incoming"><i class="fas fa-arrow-down"></i> Transfer In</span></div>
-                                    <td>${escapeHtml(t.fromPhone || 'External')}</div>
-                                    <td><span class="units-value">+${t.units} units</span></div>
-                                    <td><strong>${runningTotal} units</strong></div>
-                                    <td><span class="badge-completed"><i class="fas fa-check"></i> Completed</span></div>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    }
-    
-    function renderTransferForm() {
-        if (customerTills.length === 0) {
-            return '<div class="empty-state"><i class="fas fa-inbox"></i><br>No tills available for transfer</div>';
-        }
-        
-        return `
-            <div class="transfer-form">
-                <h3><i class="fas fa-arrow-down"></i> Transfer Units IN</h3>
-                <p style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: #5b6e69;">Add units to your till - This will INCREASE your balance</p>
-                <div class="form-group">
-                    <label>Select Till</label>
-                    <select id="transferTill">
-                        <option value="">-- Select a till --</option>
-                        ${customerTills.map(till => `
-                            <option value="${escapeHtml(till.tillNumber)}" data-current-units="${till.units || 0}" data-row="${till.rowIndex}">
-                                ${escapeHtml(till.tillNumber)} - Current: ${till.units || 0} units
-                            </option>
-                        `).join('')}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Sender Phone Number</label>
-                    <input type="tel" id="senderPhone" placeholder="0712345678" value="ADMIN">
-                </div>
-                <div class="form-group">
-                    <label>Units to Transfer IN</label>
-                    <input type="number" id="transferUnits" placeholder="Enter number of units to add" min="1">
-                    <small style="color: #5b6e69;">This will ADD units to your till</small>
-                </div>
-                <div class="form-group">
-                    <label>Reason / Notes</label>
-                    <input type="text" id="transferReason" placeholder="e.g., Stock top-up, Bonus, Purchase">
-                </div>
-                <button class="btn" id="submitTransferBtn"><i class="fas fa-plus-circle"></i> Add Units (Transfer In)</button>
-                <div id="transferFeedback" class="feedback-message" style="display:none;"></div>
-            </div>
-        `;
-    }
-    
-    function renderStatementContent() {
-        const totalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
-        const activeTills = customerTills.filter(t => t.status === "active").length;
-        const conversions = updateUnitConversions();
-        
-        return `
-            <div class="transfer-form">
-                <h3><i class="fas fa-file-alt"></i> Account Statement</h3>
-                <div style="margin-bottom: 1rem; padding: 0.75rem; background: #f8fbf9; border-radius: 16px;">
-                    <p><strong>Name:</strong> ${escapeHtml(currentCustomer.name)}</p>
-                    <p><strong>Phone:</strong> ${escapeHtml(currentCustomer.phone)}</p>
-                    <p><strong>Total Tills:</strong> ${customerTills.length}</p>
-                    <p><strong>Current Units:</strong> ${totalUnits}</p>
-                    <p><strong>Active Tills:</strong> ${activeTills}</p>
-                    <p><strong>Total Units Received:</strong> ${conversions.totalUnitsReceived}</p>
-                    <p><strong>Total Transactions:</strong> ${conversions.transactionCount}</p>
-                </div>
-                <div class="table-wrapper">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Till Number</th>
-                                <th>Store</th>
-                                <th>Units</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${customerTills.map(till => `
-                                <tr>
-                                    <td>${escapeHtml(till.tillNumber)}</div>
-                                    <td>${escapeHtml(till.storeNumber)}</div>
-                                    <td>${till.units || 0}</div>
-                                    <td>${till.status === "active" ? "Active" : "Inactive"}</div>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-                <button class="btn" id="downloadStatementBtn" style="margin-top: 1rem;"><i class="fas fa-download"></i> Download Statement</button>
-            </div>
-        `;
-    }
-    
-    async function handleTransferIn() {
-        const tillSelect = document.getElementById("transferTill");
-        const selectedOption = tillSelect.options[tillSelect.selectedIndex];
-        const tillNumber = tillSelect.value;
-        const rowIndex = selectedOption?.dataset.row;
-        const currentUnits = parseInt(selectedOption?.dataset.currentUnits || 0);
-        const senderPhone = document.getElementById("senderPhone").value.trim();
-        const units = parseInt(document.getElementById("transferUnits").value);
-        const reason = document.getElementById("transferReason")?.value.trim() || "Unit top-up";
-        const feedback = document.getElementById("transferFeedback");
-        
-        if (!tillNumber) {
-            feedback.style.display = "block";
-            feedback.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select a till';
-            feedback.className = "feedback-message feedback-error";
-            return;
-        }
-        if (!units || units <= 0) {
-            feedback.style.display = "block";
-            feedback.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter valid units to add';
-            feedback.className = "feedback-message feedback-error";
-            return;
-        }
-        
-        feedback.style.display = "block";
-        feedback.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Adding units to till...';
-        feedback.className = "feedback-message";
-        
-        const updateRes = await apiCall("updateUnits", { rowIndex: parseInt(rowIndex), addUnits: units });
-        
-        if (updateRes.success) {
-            const tillIndex = customerTills.findIndex(t => t.tillNumber === tillNumber);
-            if (tillIndex !== -1) {
-                customerTills[tillIndex].units = (customerTills[tillIndex].units || 0) + units;
-            }
-            
-            const transferRecord = {
-                id: Date.now(),
-                tillNumber: tillNumber,
-                fromPhone: senderPhone || "SYSTEM",
-                fromName: senderPhone === "ADMIN" ? "Administrator" : senderPhone,
-                toPhone: currentCustomer.phone,
-                toName: currentCustomer.name,
-                units: units,
-                reason: reason,
-                type: "TRANSFER_IN",
-                status: "completed",
-                date: new Date().toISOString()
-            };
-            
-            await saveTransferRequestToSheet(transferRecord);
-            
-            transferHistory.unshift(transferRecord);
-            localStorage.setItem(`transfers_in_${currentCustomer.phone}`, JSON.stringify(transferHistory));
-            
-            updateUnitConversions();
-            
-            const newTotalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
-            
-            feedback.innerHTML = `<i class="fas fa-check-circle"></i> Successfully added ${units} units to ${tillNumber}! New balance: ${currentUnits + units} units`;
-            feedback.className = "feedback-message feedback-success";
-            
-            document.getElementById("transferUnits").value = "";
-            document.getElementById("senderPhone").value = "ADMIN";
-            document.getElementById("transferReason").value = "";
-            document.getElementById("transferTill").value = "";
-            
-            // Update stats in real-time
-            const totalUnitsElement = document.querySelector('#unitsStatCard .stat-number');
-            const transactionsStatElement = document.querySelector('#transactionsStatCard .stat-number');
-            const unitsReceivedStatElement = document.querySelector('#unitsReceivedStatCard .stat-number');
-            
-            if (totalUnitsElement) totalUnitsElement.textContent = newTotalUnits;
-            if (transactionsStatElement) transactionsStatElement.textContent = transferHistory.length;
-            if (unitsReceivedStatElement) {
-                const newTotalReceived = transferHistory.reduce((sum, t) => sum + (t.units || 0), 0);
-                unitsReceivedStatElement.textContent = newTotalReceived;
-            }
-            
-            setTimeout(() => {
-                if (currentTab === "transactions") {
-                    document.getElementById("transactionsContent").innerHTML = renderTransactionsContent();
-                }
-                if (currentTab === "tills") {
-                    document.getElementById("tillsContent").innerHTML = renderTillsContent();
-                }
-                showToast(`Successfully added ${units} units to your till!`);
-            }, 500);
-        } else {
-            feedback.innerHTML = `<i class="fas fa-exclamation-circle"></i> Transfer failed: ${updateRes.error}`;
-            feedback.className = "feedback-message feedback-error";
-        }
-    }
-    
     function switchTab(tab) {
         currentTab = tab;
         
-        document.getElementById("tillsContent").style.display = tab === "tills" ? "block" : "none";
-        document.getElementById("transactionsContent").style.display = tab === "transactions" ? "block" : "none";
-        document.getElementById("transferContent").style.display = tab === "transfer" ? "block" : "none";
-        document.getElementById("statementContent").style.display = tab === "statement" ? "block" : "none";
+        document.querySelectorAll('[id$="Content"]').forEach(el => el.style.display = 'none');
+        document.getElementById(`${tab}Content`).style.display = 'block';
         
         document.querySelectorAll('.nav-btn').forEach(btn => {
             if (btn.dataset.tab === tab) {
@@ -1412,86 +1517,15 @@
             }
         });
         
+        if (window.innerWidth <= 768) closeMobileMenu();
+        
         if (tab === "statement") {
             document.getElementById("downloadStatementBtn")?.addEventListener("click", downloadStatement);
         }
-        
-        if (tab === "transactions") {
-            updateUnitConversions();
-        }
-        
-        // Close mobile menu on tab change
-        if (window.innerWidth <= 768) {
-            closeMobileMenu();
-        }
-    }
-    
-    function downloadStatement() {
-        const totalUnits = customerTills.reduce((sum, t) => sum + (t.units || 0), 0);
-        const conversions = updateUnitConversions();
-        
-        let html = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Statement - ${currentCustomer.name}</title>
-                <style>
-                    body { font-family: Arial, sans-serif; padding: 2rem; }
-                    .header { text-align: center; margin-bottom: 2rem; }
-                    .logo { color: #1e4a3b; font-size: 1.5rem; font-weight: 800; }
-                    .info { margin-bottom: 2rem; padding: 1rem; background: #f8fbf9; border-radius: 12px; }
-                    .stats { display: flex; gap: 1rem; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; }
-                    .stat-box { background: #1e4a3b; color: white; padding: 1rem; border-radius: 12px; text-align: center; flex: 1; }
-                    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                    th { background: #1e4a3b; color: white; }
-                </style>
-            </head>
-            <body>
-                <div class="header">
-                    <div class="logo">⚡ JamiiSim Network</div>
-                    <h1>Customer Statement</h1>
-                    <p>Generated on ${new Date().toLocaleString()}</p>
-                </div>
-                <div class="info">
-                    <p><strong>Name:</strong> ${currentCustomer.name}</p>
-                    <p><strong>Phone:</strong> ${currentCustomer.phone}</p>
-                    <p><strong>ID:</strong> ${currentCustomer.idNumber}</p>
-                </div>
-                <div class="stats">
-                    <div class="stat-box"><div class="stat-number">${customerTills.length}</div><div>Tills</div></div>
-                    <div class="stat-box"><div class="stat-number">${totalUnits}</div><div>Current Units</div></div>
-                    <div class="stat-box"><div class="stat-number">${conversions.transactionCount}</div><div>Transactions</div></div>
-                    <div class="stat-box"><div class="stat-number">${conversions.totalUnitsReceived}</div><div>Units Received</div></div>
-                </div>
-                <h3>Till Details</h3>
-                <table>
-                    <tr><th>Till Number</th><th>Store</th><th>Units</th><th>Status</th></tr>
-                    ${customerTills.map(t => `<tr><td>${t.tillNumber}</td><td>${t.storeNumber}</td><td>${t.units || 0}</td><td>${t.status}</td></tr>`).join('')}
-                </table>
-                <h3>Transaction History</h3>
-                </table>
-                    <tr><th>Date</th><th>From</th><th>Units</th><th>Reason</th></tr>
-                    ${transferHistory.map(t => `<tr><td>${new Date(t.date).toLocaleString()}</td><td>${t.fromPhone}</td>:+${t.units}</td><td>${t.reason}</td></tr>`).join('')}
-                </table>
-            </body>
-            </html>
-        `;
-        
-        const blob = new Blob([html], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `JamiiSim_Statement_${currentCustomer.phone}_${Date.now()}.html`;
-        a.click();
-        URL.revokeObjectURL(url);
-        showToast("Statement downloaded!");
     }
     
     function handleLogout() {
         currentCustomer = null;
-        customerTills = [];
-        transferHistory = [];
         renderLogin();
         document.getElementById("loginBtn")?.addEventListener("click", handleLogin);
         showToast("Logged out successfully");
